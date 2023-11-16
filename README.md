@@ -1,0 +1,2 @@
+# recursion_trump_game
+学習サイトrecursionのCS中級の課題をRubyで行ったもの
