@@ -42,4 +42,44 @@ class Dealer
     end
     output
   end
+
+  def self.score_21_individual(hand)
+    hand_value = 0
+    hand.each do |card|
+      hand_value += card.int_value
+    end
+    hand_value = 0 if hand_value > 21
+    hand_value
+  end
+
+  def self.winnerOf21(table)
+    # 「各プレイヤーの手札のスコアを計算し、それらを配列に保存
+    every_score = []
+    table["players"].each do |hand|
+      every_score << self.score_21_individual(hand)
+    end
+    puts every_score
+
+    # スコアのキャッシュを作成
+    score_hash = {}
+    every_score.each do |v|
+      if score_hash[v].nil?
+        score_hash[v] = 1
+      else
+        score_hash[v] += 1
+      end
+    end
+    puts score_hash
+
+    max_score = score_hash.keys.max
+
+    # 最高スコアの人数が1か2以上か0かを判定して結果を返す
+    if score_hash[max_score] > 1
+      "It is a draw "
+    elsif score_hash[max_score] == 1
+      "Player " + (every_score.index(max_score) + 1).to_s + " is the winner"
+    else
+      "No winners..."
+    end
+  end
 end
