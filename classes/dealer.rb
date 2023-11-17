@@ -3,7 +3,7 @@ class Dealer
     table = {
       "players" => [],
       "game_mode" => game_mode,
-      "deck" => Deck.new
+      "deck" => Deck.new(game_mode)
     }
 
     table["deck"].shuffle_deck
@@ -80,6 +80,14 @@ class Dealer
       "Player " + (every_score.index(max_score) + 1).to_s + " is the winner"
     else
       "No winners..."
+    end
+  end
+
+  def self.checkWinner(table)
+    if table["game_mode"] == "21"
+      Dealer.winnerOf21(table)
+    else
+      "no game"
     end
   end
 end
